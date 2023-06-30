@@ -1,0 +1,38 @@
+function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev 调用者账户给`spender`账户授权 `amount`数量代币。
+     *
+     * 如果成功，返回 `true`.
+     *
+     * 释放 {Approval} 事件.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev 通过授权机制，从`from`账户向`to`账户转账`amount`数量代币。转账的部分会从调用者的`allowance`中扣除。
+     *
+     * 如果成功，返回 `true`.
+     *
+     * 释放 {Transfer} 事件.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+contract ERC20 is IERC20 {
+
+    mapping(address => uint256) public override balanceOf;
+
+    mapping(address => mapping(address => uint256)) public override allowance;
+
+    uint256 public override totalSupply;   // 代币总供给
+
+    string public name;   // 名称
+    string public symbol;  // 符号
+    
+    uint8 public decimals = 18; // 小数位数
+    address public owner;
